@@ -1,0 +1,7 @@
+{      
+    "baseUrl" : "https://admin-demo.nopcommerce.com/",
+    "env":{
+        "username" : "admin@yourstore.com",
+        "password" : "admin"
+    } 
+}

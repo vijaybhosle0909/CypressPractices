@@ -1,0 +1,25 @@
+{
+    "gmailValidTestData1" : [
+        {
+            "email": "vp@gmail.com"
+        },
+        {
+            "email": "v-p@gmail.com"
+        },
+        {
+            "email": "v.p@gmail.com"
+        },
+        {
+            "email": "v_p@gmail.com"
+        },
+        {
+            "email": "v.p.k@gmail.com"
+        }
+            
+    ],
+    "name1": "Vishal Phale",
+    "email1": "vp@gmail.com",
+    "currentAddress1": "#123/21, New Jercy Road, NY, 23123",
+    "permanentAddress1": "#123/21, New Jercy Road, NY, 23123"
+    
+}
