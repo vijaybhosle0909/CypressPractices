@@ -1,4 +1,5 @@
 ///<reference types = 'cypress'/>
+
 import toolsQATextBox from "../../support/Pages/textBoxPage";
 const testData = require('../../fixtures/testData.json');
 
@@ -18,36 +19,20 @@ describe('Text Box Suite', ()=>{
                                             .and('have.css', 'background-color', 'rgb(255, 255, 255)');
     })
 
-    it('Full Name Validation With Valid Data', ()=>{
-        textBoxPageObject.typeFullName('VISHAL PHALE');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', 'VISHAL PHALE');
-
-        cy.reload();
-        textBoxPageObject.typeFullName('vishal phale');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', 'vishal phale');
-
-        cy.reload();
-        textBoxPageObject.typeFullName('Vishal Phale');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', 'Vishal Phale');
+    testData.fullNameValidTestData.forEach((fullName)=>{
+        it('Full Name Validation with valid data', ()=>{
+            textBoxPageObject.typeFullName(fullName.name);
+            textBoxPageObject.clickSubmitButton();
+            textBoxPageObject.nameOutput().should('contain', fullName.name);
+        })
     })
 
-    it('Full Name field Validation With Invalid Data', ()=>{
-        textBoxPageObject.typeFullName(' ');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '');
-
-        cy.reload();
-        textBoxPageObject.typeFullName('12345');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '');
-
-        cy.reload();
-        textBoxPageObject.typeFullName('Vishal12345');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', 'Vishal12345');
+    testData.fullNameInvalidTestData.forEach((fullName)=>{
+        it('Full Name Validation with Invalid Test Data', ()=>{
+            textBoxPageObject.typeFullName(fullName.name);
+            textBoxPageObject.clickSubmitButton();
+            textBoxPageObject.nameOutput('contain', fullName.name);
+        })
     })
 
     afterEach(()=>{
@@ -56,7 +41,7 @@ describe('Text Box Suite', ()=>{
 
 })
 
-describe.only('Tools QA Email Text Box Validation', ()=>{
+describe('Tools QA Email Text Box Validation', ()=>{
 
     beforeEach(()=>{
         cy.visit('https://demoqa.com/text-box');
@@ -70,60 +55,20 @@ describe.only('Tools QA Email Text Box Validation', ()=>{
                                         .and('have.css', 'background-color', 'rgb(255, 255, 255)');
     })
 
-    testData.gmailValidTestData1.forEach((Credential)=>{
+    testData.emailValidTestData1.forEach((credential)=>{
         it('Email Field Validation With Valid Data', ()=>{
-            textBoxPageObject.typeEmail(Credential.name);
+            textBoxPageObject.typeEmail(credential.email);
             textBoxPageObject.clickSubmitButton();
-            textBoxPageObject.emailOutput().should('contain', Credential.name);
+            textBoxPageObject.emailOutput().should('contain', credential.email);
         })
     })
 
-    // it('Email Field Validation With Valid Data', ()=>{
-    //     textBoxPageObject.typeEmail('vp@gmail.com');
-    //     textBoxPageObject.clickSubmitButton();
-    //     textBoxPageObject.getOutput().should('contain', 'vp@gmail.com');
-
-    //     cy.reload();
-    //     textBoxPageObject.typeEmail('v-p@gmail.com');
-    //     textBoxPageObject.clickSubmitButton();
-    //     textBoxPageObject.getOutput().should('contain', 'v-p@gmail.com');
-
-    //     cy.reload();
-    //     textBoxPageObject.typeEmail('v.p@gmail.com');
-    //     textBoxPageObject.clickSubmitButton();
-    //     textBoxPageObject.getOutput().should('contain', 'v.p@gmail.com');
-
-    //     cy.reload();
-    //     textBoxPageObject.typeEmail('v_p@gmail.com');
-    //     textBoxPageObject.clickSubmitButton();
-    //     textBoxPageObject.getOutput().should('contain', 'v_p@gmail.com');
-
-    //     cy.reload();
-    //     textBoxPageObject.typeEmail('v.p.k@gmail.com');
-    //     textBoxPageObject.clickSubmitButton();
-    //     textBoxPageObject.getOutput().should('contain', '');
-
-    // })
-
-    it('Email Field Validation With Invalid Data', ()=>{
-        textBoxPageObject.typeEmail('v@p@gmail.com');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('have.text', '');
-
-        cy.reload();
-        textBoxPageObject.typeEmail('v!p@gmail.com');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('have.text', '');
-
-        cy.reload();
-        textBoxPageObject.typeEmail('v..p@gmail.com');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('have.text', '');
-
-        cy.reload();
-        textBoxPageObject.typeEmail('v.p.@gmail.com');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('have.text', '');
+    testData.emailInvalidTestData1.forEach((credential)=>{
+        it('Email validation with invalid date', ()=>{
+            textBoxPageObject.typeEmail(credential.email);
+            textBoxPageObject.clickSubmitButton();
+            textBoxPageObject.emailOutput().should('not.exist');
+        })
     })
 
 })
@@ -143,36 +88,20 @@ describe('Current Address Validations', ()=>{
                                                 .and('have.css', 'background-color', 'rgb(255, 255, 255)');    
     })
 
-    it('Current Address field validation with valid data', ()=>{
-        //checking for valid address
-        textBoxPageObject.typeCurrentAddress('#123 Main Street, New York, NY 10030');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput('contain', '#123 Main Street, New York, NY 10030');
-        
-        //Checking for valid special characters
-        textBoxPageObject.typeCurrentAddress('#123/21 @Main Street, -New York, NY -10030');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput('contain', '#123/21 @Main Street, -New York, NY -10030')
+    testData.currentAddressValidTestData.forEach((address)=>{
+        it('Current Address Field Validation With Valid Data', ()=>{
+            textBoxPageObject.typeCurrentAddress(address.currentAddress);
+            textBoxPageObject.clickSubmitButton();
+            textBoxPageObject.currentAddressOutput().should('contain', address.currentAddress);
+        })
     })
 
-    it('Current Address field validation with invalid data', ()=>{
-        
-        //check for space entered
-        textBoxPageObject.typeCurrentAddress(' ');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', ' ');
-
-        //Check for invalid pincode (six digit pincode)
-        cy.reload();
-        textBoxPageObject.typeCurrentAddress('#123 Main Street, New York, NY 100300');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '#123 Main Street, New York, NY 100300');
-
-        //check for only numeric address
-        cy.reload();
-        textBoxPageObject.typeCurrentAddress('123');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '123');
+    testData.currentAddressInvalidData.forEach((address)=>{
+        it('Current Address Validation With Invalid Test Data', ()=>{
+            textBoxPageObject.typeCurrentAddress(address.currentAddress);
+            textBoxPageObject.clickSubmitButton();
+            textBoxPageObject.currentAddressOutput().should('contain', address.currentAddress);
+        })
     })
 })
 
@@ -190,37 +119,57 @@ describe('Tools QA Permanent Address Text Box Validation', ()=>{
         // textBoxPageObject.getPermanentAddressField().invoke('attr', 'placeholder').should('contain', 'Permanent Address');
     }) 
 
-    it('Permanent Address Field Validation With Valid Data', ()=>{
-        textBoxPageObject.typePermanentAddress('#123 Main Street, New York, NY 10030 dqweqfdw');
+    testData.permanentAddressValidTestData.forEach((address)=>{
+       it('Permanent Address Validation With Valid Test Data', ()=>{
+        textBoxPageObject.typePermanentAddress(address.permanentAddress);
         textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '#123 Main Street, New York, NY 10030');
-
-        //Check for special character acceptance
-        cy.reload();
-        textBoxPageObject.typePermanentAddress('#123/21 @Main Street, -New York, NY -10030');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '#123/21 @Main Street, -New York, NY -10030');
-
+        textBoxPageObject.permanantAddressOutput().should('contain', address.permanentAddress);
+       })
     })
 
-    it('Permanent Address Field Validation With Invalid Data', ()=>{
+    // it('Permanent Address Field Validation With Valid Data', ()=>{
+    //     textBoxPageObject.typePermanentAddress('#123 Main Street, New York, NY 10030 dqweqfdw');
+    //     textBoxPageObject.clickSubmitButton();
+    //     textBoxPageObject.getOutput().should('contain', '#123 Main Street, New York, NY 10030');
 
-        //check for space entered also speplling mistake in Permanent in outpur result
-        textBoxPageObject.typePermanentAddress(' ');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', ' ');
+    //     //Check for special character acceptance
+    //     cy.reload();
+    //     textBoxPageObject.typePermanentAddress('#123/21 @Main Street, -New York, NY -10030');
+    //     textBoxPageObject.clickSubmitButton();
+    //     textBoxPageObject.getOutput().should('contain', '#123/21 @Main Street, -New York, NY -10030');
 
-        //Check for invalid pincode (6 digit pincode)
+    // })
+
+    testData.permanentAddressInvalidTestData.forEach((address)=>{
+        it.only('Permanent Address Validation With Invalid Test Data', ()=>{
+         textBoxPageObject.typePermanentAddress(address.permanentAddress);
+         textBoxPageObject.clickSubmitButton();
+         textBoxPageObject.permanantAddressOutput().should('contain', address.permanentAddress);
+        })
+     })
+
+    // it('Permanent Address Field Validation With Invalid Data', ()=>{
+
+    //     //check for space entered also speplling mistake in Permanent in outpur result
+    //     textBoxPageObject.typePermanentAddress(' ');
+    //     textBoxPageObject.clickSubmitButton();
+    //     textBoxPageObject.getOutput().should('contain', ' ');
+
+    //     //Check for invalid pincode (6 digit pincode)
+    //     cy.reload();
+    //     textBoxPageObject.typePermanentAddress('#123 Main Street, New York, NY 100300');
+    //     textBoxPageObject.clickSubmitButton();
+    //     textBoxPageObject.getOutput().should('contain', '#123 Main Street, New York, NY 100300');
+
+    //     //check for only numeric address
+    //     cy.reload();
+    //     textBoxPageObject.typePermanentAddress('123');
+    //     textBoxPageObject.clickSubmitButton();
+    //     textBoxPageObject.getOutput().should('contain', '123');
+    // })
+
+    afterEach(()=>{
         cy.reload();
-        textBoxPageObject.typePermanentAddress('#123 Main Street, New York, NY 100300');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '#123 Main Street, New York, NY 100300');
-
-        //check for only numeric address
-        cy.reload();
-        textBoxPageObject.typePermanentAddress('123');
-        textBoxPageObject.clickSubmitButton();
-        textBoxPageObject.getOutput().should('contain', '123');
     })
 })
 
@@ -245,7 +194,7 @@ describe('Form Submission Validation', ()=>{
     })
     
     //Verify form with only valid Full Name, Email, Current Address, Permanent Address
-    it.only('Form Submission Validation With Valid Data Set1', ()=>{
+    it('Form Submission Validation With Valid Data Set1', ()=>{
         textBoxPageObject.typeFullName(testData.name1);
         textBoxPageObject.typeEmail(testData.email1);
         textBoxPageObject.typeCurrentAddress(testData.currentAddress1);
