@@ -31,7 +31,7 @@ class toolsQATextBox{
     }
 
     typeEmail(emailValue){  
-        return cy.get('#userEmail').should('be.enabled').type(emailValue);
+        cy.get('#userEmail').should('be.enabled').type(emailValue);
     }
 
     getCurrentAddressField(){

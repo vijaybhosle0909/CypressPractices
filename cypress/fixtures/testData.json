@@ -1,5 +1,33 @@
 {
-    "gmailValidTestData1" : [
+    "fullNameValidTestData":[
+        {
+            "name":"VISHAL PHALE"
+        },
+        {
+            "name": "Vishal Phale"
+        },
+        {
+            "name": "vishal phale"
+        },
+        {
+            "name": "vIsHaL PhAlE"
+        }
+
+    ],
+
+    "fullNameInvalidTestData": [
+        {
+            "name": " "
+        },
+        {
+            "name": "123456"
+        },
+        {
+            "name": "Vishal12345"
+        }
+    ],
+
+    "emailValidTestData1" : [
         {
             "email": "vp@gmail.com"
         },
@@ -14,12 +42,69 @@
         },
         {
             "email": "v.p.k@gmail.com"
-        }
-            
+        }   
     ],
+
+    "emailInvalidTestData1" : [
+        {
+            "email": "v@p@gmail.com"
+        },
+        {
+            "email": "v!p@gmail.com"
+        },
+        {
+            "email": "v..p@gmail.com"
+        },
+        {
+            "email": "v.p.@gmail.com"
+        }  
+    ],
+
+    "currentAddressValidTestData":[
+        {
+            "currentAddress": "#123 Main Street, New York, NY 10030"
+        },
+        {
+            "currentAddress": "#123/21 @Main Street, -New York, NY -10030"   
+        }
+    ],
+
+    "currentAddressInvalidData":[
+        {
+            "currentAddress": " "
+        },
+        {
+            "currentAddress": "#123 Main Street, New York, NY 100300"
+        },
+        {
+            "currentAddress": "123"
+        }
+    ],
+
+    "permanentAddressValidTestData":[
+        {
+            "permanentAddress": "#123 Main Street, New York, NY 10030"
+        },
+        {
+            "permanentAddress": "#123/21 @Main Street, -New York, NY -10030"   
+        }
+    ],
+    
+    "permanentAddressInvalidTestData":[
+        {
+            "permanentAddress": " "
+        },
+        {
+            "permanentAddress": "#123 Main Street, New York, NY 100300"
+        },
+        {
+            "permanentAddress": "123"
+        }
+    ],
+    
+
     "name1": "Vishal Phale",
     "email1": "vp@gmail.com",
     "currentAddress1": "#123/21, New Jercy Road, NY, 23123",
     "permanentAddress1": "#123/21, New Jercy Road, NY, 23123"
-    
 }
